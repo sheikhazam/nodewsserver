@@ -3,8 +3,8 @@ const https = require('https');
 const WebSocket = require('ws');
 
 const options = {
-    key: fs.readFileSync('key.pem'),
-    cert: fs.readFileSync('cert.pem')
+    key: fs.readFileSync('/etc/letsencrypt/live/collabbizzcloudvm1.xyz/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/collabbizzcloudvm1.xyz/cert.pem')
 };
 
 const server = https.createServer(options, (req, res) => {
@@ -28,5 +28,5 @@ wss.on('connection', (socket) => {
 });
 
 server.listen(8089, () => {
-    console.log('WebSocket Secure server is running on port 8080');
+    console.log('WebSocket Secure server is running on port 8089');
 });

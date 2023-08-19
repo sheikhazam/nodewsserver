@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Socket.IO Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script>
+        const socket = io(); // Connect to the Socket.IO server
+
+        socket.on('message', (message) => {
+            const messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML += `<p>${message}</p>`;
+        });
+
+        function sendMessage() {
+            const messageInput = document.getElementById('message');
+            const message = messageInput.value;
+            socket.emit('message', message);
+            messageInput.value = '';
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Socket.IO Example</h1>
+    <input type="text" id="message" placeholder="Enter a message">
+    <button onclick="sendMessage()">Send</button>
+    <div id="messages"></div>
+</body>
+
+</html>

@@ -1,18 +1,22 @@
-const WebSocket = require('ws');
+const http = require('http');
+const socketIO = require('socket.io');
 
-const server = new WebSocket.Server({ port: 8089 });
+const server = http.createServer();
+const io = socketIO(server);
 
-server.on('connection', (socket) => {
-    console.log('Client connected');
+io.on('connection', (socket) => {
+    console.log('A user connected');
 
     socket.on('message', (message) => {
         console.log(`Received: ${message}`);
-        socket.send(`Server received: ${message}`);
+        io.emit('message', `Server received: ${message}`);
     });
 
-    socket.on('close', () => {
-        console.log('Client disconnected');
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
     });
 });
 
-console.log('WebSocket server is running on port 8089');
+server.listen(8080, () => {
+    console.log('Socket.IO server is running on port 8080');
+});

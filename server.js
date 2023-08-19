@@ -24,7 +24,7 @@ server.on('upgrade', (request, socket, head) => {
     });
 });
 
-const PORT = 8080; // Change this port to your desired port
+const PORT = 8089; // Change this port to your desired port
 server.listen(PORT, () => {
     console.log(`WebSocket Server is listening on port ${PORT}`);
 });

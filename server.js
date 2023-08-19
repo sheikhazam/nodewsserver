@@ -1,21 +1,9 @@
-const fs = require('fs');
-const https = require('https');
 const WebSocket = require('ws');
 
-const options = {
-    key: fs.readFileSync('/etc/letsencrypt/live/collabbizzcloudvm1.xyz/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/collabbizzcloudvm1.xyz/cert.pem')
-};
+const server = new WebSocket.Server({ port: 8089 });
 
-const server = https.createServer(options, (req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('WebSocket Secure server is running.');
-});
-
-const wss = new WebSocket.Server({ server });
-
-wss.on('connection', (socket) => {
-    console.log('Client connected over WSS');
+server.on('connection', (socket) => {
+    console.log('Client connected');
 
     socket.on('message', (message) => {
         console.log(`Received: ${message}`);
@@ -27,6 +15,4 @@ wss.on('connection', (socket) => {
     });
 });
 
-server.listen(8089, () => {
-    console.log('WebSocket Secure server is running on port 8089');
-});
+console.log('WebSocket server is running on port 8089');
